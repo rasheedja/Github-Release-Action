@@ -7,6 +7,8 @@ Creates a plain Github release, without attaching assets or source code.
 If the release body contains too many characters, the body is converted to a
 markdown file and attached to the release.
 
+This is a fork of https://github.com/marketplace/actions/github-release
+
 ## Usage
 
 ```yaml
@@ -21,7 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Create a Release
-      uses: rasheedja/Github-Release-Action@v1
+      uses: rasheedja/Github-Release-Action@v2
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
