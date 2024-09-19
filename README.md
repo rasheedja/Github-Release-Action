@@ -4,6 +4,9 @@
 
 Creates a plain Github release, without attaching assets or source code.
 
+If the release body contains too many characters, the body is converted to a
+markdown file and attached to the release.
+
 ## Usage
 
 ```yaml
@@ -18,7 +21,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Create a Release
-      uses: elgohr/Github-Release-Action@v5
+      uses: rasheedja/Github-Release-Action@v1
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
