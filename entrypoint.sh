@@ -20,12 +20,16 @@ STATUS=$?
 if [ $STATUS -ne 0 ] && echo "$RESPONSE" | grep -q "422"; then
   echo "Release notes are too long. Publishing again with release notes as a file."
 
+  # Fetch the release details.
+  RELEASE=$(gh release view --json body,name,id,tagName)
+  TAG_NAME=$(printf "%s" "$RELEASE" | jq -r ".tagName")
+  RELEASE_NOTES=$(printf "%s" "$RELEASE" | jq -r ".body")
+
   # Write the release notes to a file.
-  RELEASE_NOTES=$(gh release view --json body --jq '.body')
-  echo "$RELEASE_NOTES" > release-notes.md
+  echo "$RELEASE_NOTES" > "${TAG_NAME}.md"
 
   # Retry release creation with release notes attached as a markdown file.
-  gh release create "$INPUT_TAG" -t "${INPUT_TITLE}" --notes-file release-notes.md
+  gh release create "$INPUT_TAG" -t "${INPUT_TITLE}" --notes-file "${TAG_NAME}".md
 else
   echo "$RESPONSE"
 fi
