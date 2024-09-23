@@ -23,7 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Create a Release
-      uses: rasheedja/Github-Release-Action@v2
+      uses: rasheedja/Github-Release-Action@v3
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
